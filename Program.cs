@@ -48,3 +48,18 @@ if (targetElement == null) {
 
 // Get the value of the target element
 string targetValue = targetElement.Value; // Trim() can be used if you want to remove leading and trailing whitespace from the value
+
+// Define the path for the output file
+string outputFilePath = "result.txt";
+
+// Write the target value to the output file
+try {
+    File.WriteAllText(outputFilePath, targetValue);
+}
+catch (Exception ex) {
+    Console.WriteLine($"Failed to write to file: {ex.Message}");
+    return;
+}
+
+// Print a message indicating that the target value has been written to the output file
+Console.WriteLine($"Target value '{targetValue}' written to: {outputFilePath}");
