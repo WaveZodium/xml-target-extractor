@@ -25,7 +25,14 @@ Console.WriteLine($"Loading XML document from: {sourceFilePath}");
 
 // Load the XML document from the specified file path
 // Documentation: https://learn.microsoft.com/en-us/dotnet/standard/linq/load-xml-file
-XElement xmlDoc = XElement.Load(sourceFilePath);
+XElement xmlDoc;
+try {
+    xmlDoc = XElement.Load(sourceFilePath);
+}
+catch (Exception ex) {
+    Console.WriteLine($"Failed to load XML: {ex.Message}");
+    return;
+}
 
 // Search for the element with the specified id in the loaded XML document
 var elementWithCorrectId = xmlDoc.Descendants()
