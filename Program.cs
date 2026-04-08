@@ -26,3 +26,25 @@ Console.WriteLine($"Loading XML document from: {sourceFilePath}");
 // Load the XML document from the specified file path
 // Documentation: https://learn.microsoft.com/en-us/dotnet/standard/linq/load-xml-file
 XElement xmlDoc = XElement.Load(sourceFilePath);
+
+// Search for the element with the specified id in the loaded XML document
+var elementWithCorrectId = xmlDoc.Descendants()
+    .FirstOrDefault(e => e.Attribute("id")?.Value == elementIdToFind);
+
+// Check if the element with the specified id was found
+if (elementWithCorrectId == null) {
+    Console.WriteLine($"Element with id={elementIdToFind} not found.");
+    return;
+}
+
+// Get the child element target of the found element
+var targetElement = elementWithCorrectId.Element("target");
+
+// Check if the target element exists
+if (targetElement == null) {
+    Console.WriteLine($"Target element not found within element with id={elementIdToFind}");
+    return;
+}
+
+// Get the value of the target element
+string targetValue = targetElement.Value; // Trim() can be used if you want to remove leading and trailing whitespace from the value
